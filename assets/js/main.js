@@ -57,7 +57,6 @@ const posts = [
 ];
 
 
-
 //BONUS
 //1. Formattare le date in formato italiano (gg/mm/aaaa)
 //2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
@@ -67,7 +66,6 @@ const posts = [
 //START:
 // Stampo i 5 template per cominciare a visualizzarli.
 // inserisco la stampa del template in una function
-
 
 const mainContainer = document.querySelector('#container');
     generateSingleTemplate();
@@ -119,6 +117,34 @@ function generateSingleTemplate (){
 // - incrementiamo il counter dei likes relativo.
 //Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
-
 //seleziono il bottone
-const btnLike = document.querySelector('.like-button')
+const btnsLikes = document.querySelectorAll('.like-button');
+//seleziono il counter
+const counterLikes = document.querySelector('.js-likes-counter');
+//creo array che salverà il numero dei likes
+const numbersOfLikes = [];
+// Itera su tutti i pulsanti di "like"
+btnsLikes.forEach((likeButton, index) => {
+    
+    // Ottengo il pulsante di "like" corrente
+    const currentLikeButton = btnsLikes[index];
+    
+    currentLikeButton.addEventListener('click', function(event) {
+        event.preventDefault(); 
+        
+        // Aggiunge la classe CSS per cambiare colore al button
+        this.classList.add('like-button--liked');
+        
+        // Identifica l'ID del post associato al pulsante di "like" e lo aggiungo all'array 'numbersOfLikes'
+        const thisId = this.dataset.postid;
+        numbersOfLikes.push(thisId);
+
+        // Incremento il contatore dei likes associato al post corrente di 1
+        const counter = document.querySelector(`#like-counter-${thisId}`);
+        counter.innerHTML = parseInt(counter.innerHTML) + 1;
+    });
+});
+
+    
+console.log(numbersOfLikes)
+
