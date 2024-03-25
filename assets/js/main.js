@@ -76,8 +76,17 @@ const posts = [
 //START:
 // Stampo i 5 template per cominciare a visualizzarli.
 
+
+
 const mainContainer = document.querySelector('#container');
 posts.forEach((userPost) => {
+    generateSingleTemplate();
+
+});
+
+
+//**** FUNCTIONS ****/
+function generateSingleTemplate (){
     const postTemplate = `
         <div class="post">
             <div class="post__header">
@@ -111,6 +120,4 @@ posts.forEach((userPost) => {
         </div>`;
 
         mainContainer.innerHTML+=postTemplate;
-    
-});
-
+    }
