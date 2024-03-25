@@ -70,15 +70,10 @@ const posts = [
 
 
 const mainContainer = document.querySelector('#container');
-posts.forEach((userPost) => {
     generateSingleTemplate();
-
-});
-
 
 //**** FUNCTIONS ****/
 function generateSingleTemplate (){
-
     posts.forEach((post) => {
         // Estrapolo le proprietà dall'oggetto post con metodo per destrutturare
         const { id, content, media, author, likes } = post;
@@ -119,6 +114,11 @@ function generateSingleTemplate (){
     });
 }
 
-//Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e
-// incrementiamo il counter dei likes relativo.
+//Milestone 2 - Se clicchiamo sul tasto "Mi Piace" : 
+// - cambiamo il colore al testo del bottone e
+// - incrementiamo il counter dei likes relativo.
 //Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
+
+//seleziono il bottone
+const btnLike = document.querySelector('.like-button')
