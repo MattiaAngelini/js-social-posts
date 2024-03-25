@@ -57,13 +57,6 @@ const posts = [
 ];
 
 
-//Milestone 1 - Prendendo come riferimento il layout di esempio presente nell'html
-// stampiamo i post del nostro feed.
-
-
-//Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e
-// incrementiamo il counter dei likes relativo.
-//Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
 //BONUS
 //1. Formattare le date in formato italiano (gg/mm/aaaa)
@@ -71,11 +64,9 @@ const posts = [
 //3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
 
-
-
 //START:
 // Stampo i 5 template per cominciare a visualizzarli.
-
+// inserisco la stampa del template in una function
 
 
 const mainContainer = document.querySelector('#container');
@@ -87,37 +78,47 @@ posts.forEach((userPost) => {
 
 //**** FUNCTIONS ****/
 function generateSingleTemplate (){
-    const postTemplate = `
-        <div class="post">
-            <div class="post__header">
-                <div class="post-meta">                    
-                    <div class="post-meta__icon">
-                        <img class="profile-pic" src="https://unsplash.it/300/300?image=15" alt="Phil Mangione">                    
-                    </div>
-                    <div class="post-meta__data">
-                        <div class="post-meta__author">Phil Mangione</div>
-                        <div class="post-meta__time">4 mesi fa</div>
-                    </div>                    
-                </div>
-            </div>
-            <div class="post__text">Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.</div>
-            <div class="post__image">
-                <img src="https://unsplash.it/600/300?image=171" alt="">
-            </div>
-            <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
-                    </div>
-                </div> 
-            </div>            
-        </div>`;
 
-        mainContainer.innerHTML+=postTemplate;
-    }
+    posts.forEach((post) => {
+        // Estrapolo le proprietà dall'oggetto post con metodo per destrutturare
+        const { id, content, media, author, likes } = post;
+        const { name, image } = author;
+        //inserisco chiavi nel template (nei backtick)
+        const postTemplate = `
+            <div class="post">
+                <div class="post__header">
+                    <div class="post-meta">                    
+                        <div class="post-meta__icon">
+                            <img class="profile-pic" src="${image}" alt="${name}">                    
+                        </div>
+                        <div class="post-meta__data">
+                            <div class="post-meta__author">${name}</div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="post__text">${content}</div>
+                <div class="post__image">
+                    <img src="${media}" alt="">
+                </div>
+                <div class="post__footer">
+                    <div class="likes js-likes">
+                        <div class="likes__cta">
+                            <a class="like-button  js-like-button" href="#" data-postid="${id}">
+                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                <span class="like-button__label">Mi Piace</span>
+                            </a>
+                        </div>
+                        <div class="likes__counter">
+                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
+                        </div>
+                    </div> 
+                </div>            
+            </div>`;
+    
+        mainContainer.innerHTML += postTemplate;
+    });
+}
+
+//Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e
+// incrementiamo il counter dei likes relativo.
+//Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
